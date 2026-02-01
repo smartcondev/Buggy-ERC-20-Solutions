@@ -77,6 +77,8 @@ contract Challlenge01 {
         return true;
     }
 
+    //Irregular balance update
+    // The function do not subtract the transfer amount from sender(from)
     function _transfer(address from, address to, uint256 value) internal {
         if (from == address(0)) revert InvalidSender(from);
         if (to == address(0)) revert InvalidReceiver(to);
@@ -84,6 +86,8 @@ contract Challlenge01 {
         uint256 fromBalance = _balances[from];
         if (fromBalance < value) revert InsufficientBalance(from, fromBalance, value);
 
+        //This line is added as a solution
+        _balances[from] = fromBalance - value;
         _balances[to] += value;
         emit Transfer(from, to, value);
     }
