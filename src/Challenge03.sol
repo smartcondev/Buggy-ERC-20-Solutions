@@ -36,14 +36,14 @@ contract Challenge03 {
         _mint(msg.sender, 1000000 * 10 ** 18);
     }
 
-    function burn(address account, uint256 value) public {
-        require(account != address(0), "Invalid burner");
-        uint256 accountBalance = _balances[account];
+    
+    //code issue
+    function burn(uint256 value) public {
+        uint256 accountBalance = _balances[msg.sender];
         require(accountBalance >= value, "Insufficient balance");
-
-        _balances[account] = accountBalance - value;
+        _balances[msg.sender] = accountBalance - value;
         _totalSupply -= value;
-        emit Transfer(account, address(0), value);
+        emit Transfer(msg.sender, address(0), value);
     }
 
     function transfer(address to, uint256 value) public returns (bool) {

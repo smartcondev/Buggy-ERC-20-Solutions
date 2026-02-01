@@ -39,8 +39,9 @@ contract Challenge02 {
         decimals = _decimals;
     }
 
-    function approve(address owner, address spender, uint256 amount) public {
-        allowance[owner][spender] = amount;
+    function approve(address spender, uint256 amount) public {
+        require(spender != address(0),"Spender cannot be address(0)");
+        allowance[msg.sender][spender] = amount;
         emit Approval(owner, spender, amount);
     }
 
