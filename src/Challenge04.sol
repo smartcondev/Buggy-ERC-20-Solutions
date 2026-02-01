@@ -82,8 +82,10 @@ contract Challenge04 {
         _approve(msg.sender, spender, value);
         return true;
     }
-
+ 
     function transferFrom(address from, address to, uint256 value) public returns (bool) {
+        // this line added a solution
+        require(!paused, "Challenge4: transfers paused");
         _spendAllowance(from, msg.sender, value);
         _transfer(from, to, value);
         return true;
