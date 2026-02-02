@@ -82,8 +82,13 @@ contract Challenge08 {
         return true;
     }
 
+    //Bugs at here
     function burn(uint256 value) public {
+        //this line added
+        require( _balances[msg.sender] >= value, "Not Enough Tokens");
         _balances[msg.sender] -= value;
+        //this line is also added
+        _totalSupply -= value;
         emit Transfer(msg.sender, address(0), value);
     }
 
