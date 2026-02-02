@@ -78,7 +78,11 @@ contract Challenge15 {
     }
 
     function _mint(address to, uint256 amount) internal virtual {
+        //this was also added
+        require(to != address(0),"Mint to address(0) is not possible");
         totalSupply += amount;
+        // this line was added
+        balanceOf[to] += amount;
 
         emit Transfer(address(0), to, amount);
     }
