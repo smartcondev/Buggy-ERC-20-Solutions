@@ -122,12 +122,16 @@ contract Challenge18 {
         }
     }
 
+    // mint had issue
+
     function _mint(address account, uint256 value) internal {
         require(account != address(0), "ERC20: mint to the zero address");
 
         unchecked {
             _balances[account] += value;
         }
+        //added code
+        _totalSupply += value;
         emit Transfer(address(0), account, value);
     }
 
