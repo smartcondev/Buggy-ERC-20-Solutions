@@ -100,17 +100,17 @@ contract Challenge19 {
         require(to != address(0), "ERC20: transfer to the zero address");
     
         uint256 fromBalance = _balances[from];
-        uint256 toBalance = _balances[to];
 
         require(
             fromBalance >= amount,
             "ERC20: transfer amount exceeds balance"
         );
+        //the issue was at here
         unchecked {
-            _balances[from] = fromBalance - amount;
+            _balances[from] -= amount;
             // Overflow not possible: the sum of all balances is capped by totalSupply, and the sum is preserved by
             // decrementing then incrementing.
-            _balances[to] = toBalance + amount;
+            _balances[to] += amount;
         }
     
         emit Transfer(from, to, amount);
