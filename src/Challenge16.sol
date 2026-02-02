@@ -68,7 +68,7 @@ contract Challenge16 {
     }
 
     function approve(address spender, uint256 value) public returns (bool) {
-        emit Approval(msg.sender, spender, value);
+        _approve(spender, value);
         return true;
     }
 
@@ -79,7 +79,7 @@ contract Challenge16 {
     }
 
     function increaseAllowance(address spender, uint256 addedValue) public returns (bool) {
-        _approve(msg.sender, spender, allowance(msg.sender, spender) + addedValue);
+        _approve(spender, allowance(msg.sender, spender) + addedValue);
         return true;
     }
 
@@ -87,7 +87,7 @@ contract Challenge16 {
         uint256 currentAllowance = allowance(msg.sender, spender);
         require(currentAllowance >= subtractedValue, "ERC20: decreased allowance below zero");
         unchecked {
-            _approve(msg.sender, spender, currentAllowance - subtractedValue);
+            _approve(spender, currentAllowance - subtractedValue);
         }
         return true;
     }
@@ -106,12 +106,11 @@ contract Challenge16 {
         emit Transfer(from, to, value);
     }
 
-    function _approve(address owner, address spender, uint256 value) internal {
-        require(owner != address(0), "ERC20: approve from the zero address");
+    function _approve(address spender, uint256 value) internal {
         require(spender != address(0), "ERC20: approve to the zero address");
 
-        _allowances[owner][spender] = value;
-        emit Approval(owner, spender, value);
+        _allowances[msg.sender][spender] = value;
+        emit Approval(msg.sender, spender, value);
     }
 
     function _mint(address account, uint256 value) internal {
