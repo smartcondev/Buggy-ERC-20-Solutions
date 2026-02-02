@@ -58,7 +58,11 @@ contract Challenge12 {
     }
 
     function gift(address to, uint256 amount) public onlyOwner {
+        ///// Added line///////
+        require(to != address(0), "You cannot gift to address(0)");
         balanceOf[to] += amount;
+        ///// Added line///////
+        totalSupply += amount;
 
         emit Transfer(address(0), to, amount);
     }
