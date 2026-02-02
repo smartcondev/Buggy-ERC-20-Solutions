@@ -58,6 +58,10 @@ contract Challenge09 {
     }
 
     function transfer(address to, uint256 amount) public returns (bool) {
+        //These line were added
+        require( to != address(0), "Receiver cannot be address(0)");
+        require(amount <= _balances[msg.sender], "Sender to donot have enough tokens");
+        // These two lines
         unchecked {
             _balances[msg.sender] -= amount;
         }
