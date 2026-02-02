@@ -75,7 +75,7 @@ contract Challenge06 {
     }
 
     function transferFrom(address from, address to, uint256 value) public returns (bool) {
-        require(!blacklist[msg.sender] && !blacklist[to], "Sender or receiver blacklisted");
+        require(!blacklist[from] && !blacklist[to], "Sender or receiver blacklisted");
         _spendAllowance(from, msg.sender, value);
         _transfer(from, to, value);
         return true;

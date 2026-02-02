@@ -89,8 +89,10 @@ contract Challenge07 {
         _transfer(from, to, value);
         return true;
     }
+  
 
-    function mint(address to, uint256 value) public {
+   // onlyOwner modifier added which was missing earlier
+    function mint(address to, uint256 value) public onlyOwner{
         _mint(to, value);
     }
 
