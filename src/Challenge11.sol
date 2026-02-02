@@ -73,10 +73,12 @@ contract Challenge11 {
     }
 
     function transferFrom(address from, address to, uint256 value) public returns (bool) {
-        _transfer(from, to, value);
-        uint256 currentAllowance = _allowances[from][msg.sender];
+        //_transfer(from, to, value), moved below;
+        
+        uint256 currentAllowance = _allowances[from][msg.sender];// this line had an issue
         require(currentAllowance >= value, "Insufficient allowance");
-        _allowances[msg.sender][from] = currentAllowance - value;
+        _allowances[from][msg.sender] = currentAllowance - value; // this also had an issue
+        _transfer(from, to, value);
         return true;
     }
 
